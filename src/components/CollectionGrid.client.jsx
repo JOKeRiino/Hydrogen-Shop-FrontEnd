@@ -1,4 +1,4 @@
-import { Link } from "@shopify/hydrogen"
+import { Link } from "@shopify/hydrogen/client";
 
 const CollectionGrid = ({ collections }) => {
 
@@ -26,7 +26,7 @@ const CollectionGrid = ({ collections }) => {
 		<div className="w-full">
 			<h1>Shop Our Collections:</h1>
 			<div className="bg-hydro-blue w-2/6 h-1.5 shadow mb-2"></div>
-			<div className="grid gap-4 my-5 mx-auto md:grid-cols-2">
+			<div className="grid gap-4 my-5 mx-auto md:grid-cols-4">
 				{renderCollections()}
 			</div>
 		</div>
