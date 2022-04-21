@@ -21,7 +21,8 @@ module.exports = {
 				},
 			}),
 			colors: {
-				'hydro-blue': '#52edff',
+				// 'hydro-blue': '#52edff',
+				'hydro-blue': '#2888f2',
 			},
 		},
 	},

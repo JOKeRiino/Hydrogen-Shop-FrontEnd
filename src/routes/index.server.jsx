@@ -11,15 +11,56 @@ import Layout from '../components/Layout.server';
 import FeaturedCollection from '../components/FeaturedCollection';
 import ProductCard from '../components/ProductCard';
 import { Suspense } from 'react';
+import MobileBox from '../components/MobileBox.client';
+import CollectionGrid from '../components/CollectionGrid.client';
+import clothes from '../img/clothes_on_hanger.webp';
+import parcel from '../img/parcel.webp';
+import sale from '../img/sale.webp';
 
-export default function Index() {
+const images = [
+	{
+		url: clothes,
+		title: "Let's talk about us",
+		cta: "Our mission",
+		alt: "Clothes on a hanger",
+		path: "/about"
+	},
+	{
+		url: parcel,
+		title: "Free shipping on all orders over 70€",
+		cta: "I want free shipping!",
+		alt: "A parcel from hydrogenshop",
+		path: "/collections/products"
+	},
+	{
+		url: sale,
+		title: "Limited Sale until Friday!",
+		cta: "Show me!",
+		alt: "Sale Sign in a park next to a bench",
+		path: "/collections/sale"
+	}
+]
+
+export default function Index({ country = { isoCode: 'US' } }) {
+	const { data } = useShopQuery({
+		query: QUERY,
+		variables: {
+			country: country.isoCode,
+		},
+		preload: true,
+	});
+
+	const collections = data ? flattenConnection(data.collections) : [];
+
 	return (
-		<Layout>
+		<Layout sliderArray={images}>
 			<Suspense fallback={null}>
 				<SeoForHomepage />
 			</Suspense>
 			<div className="relative mb-12">
 			</div>
+			<CollectionGrid collections={collections} />
+			<MobileBox />
 		</Layout>
 	);
 }
