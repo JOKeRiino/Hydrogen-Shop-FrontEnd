@@ -1,7 +1,6 @@
 import {
 	useShopQuery,
 	flattenConnection,
-	Link,
 	Seo,
 	CacheDays,
 } from '@shopify/hydrogen';
@@ -57,8 +56,6 @@ export default function Index({ country = { isoCode: 'US' } }) {
 			<Suspense fallback={null}>
 				<SeoForHomepage />
 			</Suspense>
-			<div className="relative mb-12">
-			</div>
 			<CollectionGrid collections={collections} />
 			<MobileBox />
 		</Layout>
@@ -87,78 +84,78 @@ function SeoForHomepage() {
 	);
 }
 
-function BoxFallback() {
-	return <div className="bg-white p-12 shadow-xl rounded-xl mb-10 h-40"></div>;
-}
+// function BoxFallback() {
+// 	return <div className="bg-white p-12 shadow-xl rounded-xl mb-10 h-40"></div>;
+// }
 
-function FeaturedProductsBox({ country }) {
-	const { data } = useShopQuery({
-		query: QUERY,
-		variables: {
-			country: country.isoCode,
-		},
-		preload: true,
-	});
+// function FeaturedProductsBox({ country }) {
+// 	const { data } = useShopQuery({
+// 		query: QUERY,
+// 		variables: {
+// 			country: country.isoCode,
+// 		},
+// 		preload: true,
+// 	});
 
-	const collections = data ? flattenConnection(data.collections) : [];
-	const featuredProductsCollection = collections[0];
-	const featuredProducts = featuredProductsCollection
-		? flattenConnection(featuredProductsCollection.products)
-		: null;
+// 	const collections = data ? flattenConnection(data.collections) : [];
+// 	const featuredProductsCollection = collections[0];
+// 	const featuredProducts = featuredProductsCollection
+// 		? flattenConnection(featuredProductsCollection.products)
+// 		: null;
 
-	return (
-		<div className="bg-white p-12 shadow-xl rounded-xl mb-10">
-			{featuredProductsCollection ? (
-				<>
-					<div className="flex justify-between items-center mb-8 text-md font-medium">
-						<span className="text-black uppercase">
-							{featuredProductsCollection.title}
-						</span>
-						<span className="hidden md:inline-flex">
-							<Link
-								to={`/collections/${featuredProductsCollection.handle}`}
-								className="text-blue-600 hover:underline"
-							>
-								Shop all
-							</Link>
-						</span>
-					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-						{featuredProducts.map((product) => (
-							<div key={product.id}>
-								<ProductCard product={product} />
-							</div>
-						))}
-					</div>
-					<div className="md:hidden text-center">
-						<Link
-							to={`/collections/${featuredProductsCollection.handle}`}
-							className="text-blue-600"
-						>
-							Shop all
-						</Link>
-					</div>
-				</>
-			) : null}
-		</div>
-	);
-}
+// 	return (
+// 		<div className="bg-white p-12 shadow-xl rounded-xl mb-10">
+// 			{featuredProductsCollection ? (
+// 				<>
+// 					<div className="flex justify-between items-center mb-8 text-md font-medium">
+// 						<span className="text-black uppercase">
+// 							{featuredProductsCollection.title}
+// 						</span>
+// 						<span className="hidden md:inline-flex">
+// 							<Link
+// 								to={`/collections/${featuredProductsCollection.handle}`}
+// 								className="text-blue-600 hover:underline"
+// 							>
+// 								Shop all
+// 							</Link>
+// 						</span>
+// 					</div>
+// 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+// 						{featuredProducts.map((product) => (
+// 							<div key={product.id}>
+// 								<ProductCard product={product} />
+// 							</div>
+// 						))}
+// 					</div>
+// 					<div className="md:hidden text-center">
+// 						<Link
+// 							to={`/collections/${featuredProductsCollection.handle}`}
+// 							className="text-blue-600"
+// 						>
+// 							Shop all
+// 						</Link>
+// 					</div>
+// 				</>
+// 			) : null}
+// 		</div>
+// 	);
+// }
 
-function FeaturedCollectionBox({ country }) {
-	const { data } = useShopQuery({
-		query: QUERY,
-		variables: {
-			country: country.isoCode,
-		},
-		preload: true,
-	});
+// function FeaturedCollectionBox({ country }) {
+// 	const { data } = useShopQuery({
+// 		query: QUERY,
+// 		variables: {
+// 			country: country.isoCode,
+// 		},
+// 		preload: true,
+// 	});
 
-	const collections = data ? flattenConnection(data.collections) : [];
-	const featuredCollection =
-		collections && collections.length > 1 ? collections[1] : collections[0];
+// 	const collections = data ? flattenConnection(data.collections) : [];
+// 	const featuredCollection =
+// 		collections && collections.length > 1 ? collections[1] : collections[0];
 
-	return <FeaturedCollection collection={featuredCollection} />;
-}
+// 	return <FeaturedCollection collection={featuredCollection} />;
+// }
 
 const SEO_QUERY = gql`
   query homeShopInfo {
@@ -170,7 +167,7 @@ const SEO_QUERY = gql`
 
 const QUERY = gql`
   query indexContent($country: CountryCode) @inContext(country: $country) {
-    collections(first: 2) {
+    collections(first: 4) {
       edges {
         node {
           handle

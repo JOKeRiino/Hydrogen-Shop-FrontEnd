@@ -104,7 +104,7 @@ export default function ProductDetails({ product, children }) {
 	return (
 		<>
 			<ProductProvider data={product} initialVariantId={initialVariant.id}>
-				<div className="grid grid-cols-1 md:grid-cols-[1fr,1fr] gap-x-8 my-16">
+				<div className="grid grid-cols-1 md:grid-cols-[1fr,1fr] gap-x-8 my-8">
 					<div className="md:hidden mt-5 mb-8">
 						<ProductTitle
 							as="h1"
@@ -113,7 +113,7 @@ export default function ProductDetails({ product, children }) {
 						<div className="bg-hydro-blue w-7/12 h-1.5 shadow -translate-x-4"></div>
 						<div className="flex justify-between md:block">
 							<ProductPrice
-								className="text-gray-500 line-through text-lg font-semibold"
+								className="text-red-800 line-through text-lg font-semibold"
 								priceType="compareAt"
 								variantId={initialVariant.id}
 							/>
