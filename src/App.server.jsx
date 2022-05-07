@@ -6,36 +6,39 @@ import DefaultSeo from './components/DefaultSeo.server';
 import NotFound from './components/NotFound.server';
 import LoadingFallback from './components/LoadingFallback';
 import CartProvider from './components/CartProvider.client';
-
-function App({ routes }) {
-	return (
-		<ShopifyProvider shopifyConfig={shopifyConfig}>
-			<CartProvider>
-				<DefaultSeo />
-				<Router>
-					<FileRoutes routes={routes} />
-					<Route path="*" page={<NotFound />} />
-				</Router>
-			</CartProvider>
-		</ShopifyProvider>
-	);
-}
+import { log } from '@shopify/hydrogen';
 
 // function App({ routes }) {
 // 	return (
-// 		<Suspense fallback={<LoadingFallback />}>
-// 			<ShopifyProvider shopifyConfig={shopifyConfig}>
-// 				<CartProvider>
-// 					<DefaultSeo />
-// 					<Router>
-// 						<FileRoutes routes={routes} />
-// 						<Route path="*" page={<NotFound />} />
-// 					</Router>
-// 				</CartProvider>
-// 			</ShopifyProvider>
-// 		</Suspense>
+// 		<ShopifyProvider shopifyConfig={shopifyConfig}>
+// 			<CartProvider>
+// 				<DefaultSeo />
+// 				<Router>
+// 					<FileRoutes routes={routes} />
+// 					<Route path="*" page={<NotFound />} />
+// 				</Router>
+// 			</CartProvider>
+// 		</ShopifyProvider>
 // 	);
 // }
+
+function App({ routes }) {
+	log.debug('app started');
+
+	return (
+		<Suspense fallback={<LoadingFallback />}>
+			<ShopifyProvider shopifyConfig={shopifyConfig}>
+				<CartProvider>
+					<DefaultSeo />
+					<Router>
+						<FileRoutes routes={routes} />
+						<Route path="*" page={<NotFound />} />
+					</Router>
+				</CartProvider>
+			</ShopifyProvider>
+		</Suspense>
+	);
+}
 
 const routes = import.meta.globEager('./routes/**/*.server.[jt](s|sx)');
 

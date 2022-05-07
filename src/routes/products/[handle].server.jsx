@@ -230,7 +230,7 @@ const QUERY = gql`
 
 const COLLECTION_QUERY = gql`
   query indexContent($country: CountryCode) @inContext(country: $country) {
-    collections(first: 2) {
+    collections(first: 100) {
       edges {
         node {
           handle

@@ -9,6 +9,15 @@ import MoneyPrice from './MoneyPrice.client';
  */
 export default function ProductCard({ product }) {
 	const selectedVariant = product.variants.edges[0].node;
+	// let selectedVariant;
+	//
+	// product.variants.edges.forEach(edge => {
+	// 	if (edge.node.priceV2.amount === product.compareAtPriceRange.minVariantPrice.amount) {
+	// 		selectedVariant = edge.node;
+	// 	}
+	// })
+
+	// console.log(selectedVariant);
 
 	if (selectedVariant == null) {
 		return null;

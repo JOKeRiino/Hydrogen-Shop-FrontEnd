@@ -18,7 +18,7 @@ const About = () => {
 			<div className="mb-14">
 				<h2 className='text-3xl font-semibold'>Our Core Values</h2>
 				<div className="bg-hydro-blue w-2/6 h-1.5 shadow mb-2"></div>
-				<div className='grid gap-4 mt-7 grid-cols-2 md:grid-cols-3'>
+				<div className='grid gap-4 mt-7 grid-cols-1 md:grid-cols-3 sm:grid-cols-2'>
 					<div className='group w-full max-w-[300px] h-[300px]'>
 						<p className='py-0 px-2.5 text-5xl text-slate-400 font-bold transition-colors group-hover:text-hydro-blue'>01</p>
 						<div className='w-16 h-2 bg-hydro-blue group-hover:bg-slate-400 transition-colors -translate-x-[10px] -translate-y-[12]'></div>

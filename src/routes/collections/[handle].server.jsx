@@ -1,4 +1,4 @@
-import {useShopQuery, flattenConnection, Seo} from '@shopify/hydrogen';
+import { useShopQuery, flattenConnection, Seo } from '@shopify/hydrogen';
 import gql from 'graphql-tag';
 
 import LoadMoreProducts from '../../components/LoadMoreProducts.client';
@@ -7,55 +7,55 @@ import ProductCard from '../../components/ProductCard';
 import NotFound from '../../components/NotFound.server';
 
 export default function Collection({
-  country = {isoCode: 'US'},
-  collectionProductCount = 24,
-  params,
+	country = { isoCode: 'US' },
+	collectionProductCount = 24,
+	params,
 }) {
-  const {handle} = params;
-  const {data} = useShopQuery({
-    query: QUERY,
-    variables: {
-      handle,
-      country: country.isoCode,
-      numProducts: collectionProductCount,
-    },
-    preload: true,
-  });
+	const { handle } = params;
+	const { data } = useShopQuery({
+		query: QUERY,
+		variables: {
+			handle,
+			country: country.isoCode,
+			numProducts: collectionProductCount,
+		},
+		preload: true,
+	});
 
-  if (data?.collection == null) {
-    return <NotFound />;
-  }
+	if (data?.collection == null) {
+		return <NotFound />;
+	}
 
-  const collection = data.collection;
-  const products = flattenConnection(collection.products);
-  const hasNextPage = data.collection.products.pageInfo.hasNextPage;
+	const collection = data.collection;
+	const products = flattenConnection(collection.products);
+	const hasNextPage = data.collection.products.pageInfo.hasNextPage;
 
-  return (
-    <Layout>
-      {/* the seo object will be expose in API version 2022-04 or later */}
-      <Seo type="collection" data={collection} />
-      <h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-6 mt-6">
-        {collection.title}
-      </h1>
-      <div
-        dangerouslySetInnerHTML={{__html: collection.descriptionHtml}}
-        className="text-lg"
-      />
-      <p className="text-sm text-gray-500 mt-5 mb-5">
-        {products.length} {products.length > 1 ? 'products' : 'product'}
-      </p>
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {products.map((product) => (
-          <li key={product.id}>
-            <ProductCard product={product} />
-          </li>
-        ))}
-      </ul>
-      {hasNextPage && (
-        <LoadMoreProducts startingCount={collectionProductCount} />
-      )}
-    </Layout>
-  );
+	return (
+		<Layout>
+			{/* the seo object will be expose in API version 2022-04 or later */}
+			<Seo type="collection" data={collection} />
+			<h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-6 mt-6">
+				{collection.title}
+			</h1>
+			<div
+				dangerouslySetInnerHTML={{ __html: collection.descriptionHtml }}
+				className="text-lg"
+			/>
+			<p className="text-sm text-gray-500 mt-5 mb-5">
+				{products.length} {products.length > 1 ? 'products' : 'product'}
+			</p>
+			<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+				{products.map((product) => (
+					<li key={product.id}>
+						<ProductCard product={product} />
+					</li>
+				))}
+			</ul>
+			{hasNextPage && (
+				<LoadMoreProducts startingCount={collectionProductCount} />
+			)}
+		</Layout>
+	);
 }
 
 const QUERY = gql`

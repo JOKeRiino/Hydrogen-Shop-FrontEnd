@@ -24,7 +24,7 @@ const Slider = ({ images = [] }) => {
 			return (
 				<div key={index} className={slideIndex === index + 1 ? "w-full transition-opacity duration-1000 block" : "w-full transition-opacity duration-1000 hidden"}>
 					<img
-						className="aspect-video w-screen object-cover"
+						className="h-[80vh] w-full object-cover"
 						src={img.url}
 						alt={img.alt}
 					/>
@@ -51,7 +51,7 @@ const Slider = ({ images = [] }) => {
 
 	return (
 		<div>
-			<div className="w-screen h-auto relative overflow-hidden">
+			<div className="w-full h-auto relative overflow-hidden">
 				<div className="w-full">
 					{renderSlides()}
 				</div>
